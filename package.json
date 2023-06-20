@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@bufbuild/buf": "^1.15.0-1",
+    "@grpc/grpc-js": "^1.8.14",
+    "@grpc/proto-loader": "^0.7.6",
+    "@nestjs/microservices": "^9.4.0",
+    "prisma": "^4.14.1"
+  }
+}
