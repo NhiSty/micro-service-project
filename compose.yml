@@ -21,6 +21,7 @@ services:
       - 4318:4318
 
   auth-api:
+    command: sh -c "npm i && npx prisma migrate dev"
     extends:
       file: ./compose/compose.published.yml
       service: auth-api
@@ -29,6 +30,12 @@ services:
     extends:
       file: ./compose/compose.published.yml
       service: front
+
+  user-api:
+    command: sh -c "npm i && npx prisma migrate dev"
+    extends:
+      file: ./compose/compose.published.yml
+      service: user-api
 
 networks:
   default:
