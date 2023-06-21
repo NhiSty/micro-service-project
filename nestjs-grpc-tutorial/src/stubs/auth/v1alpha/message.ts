@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { User, UserRole } from "../../user/v1alpha/message";
+import { UserRole, User } from '../../user/v1alpha/message';
 
-export const protobufPackage = "auth.v1alpha";
+export const protobufPackage = 'auth.v1alpha';
 
 export interface LoginRequest {
   email?: string;
@@ -47,4 +47,4 @@ export interface ValidateResponse {
   internal?: boolean;
 }
 
-export const AUTH_V1ALPHA_PACKAGE_NAME = "auth.v1alpha";
+export const AUTH_V1ALPHA_PACKAGE_NAME = 'auth.v1alpha';

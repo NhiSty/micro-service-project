@@ -25,16 +25,6 @@ services:
       file: ./compose/compose.published.yml
       service: auth-api
 
-  user-api:
-    extends:
-      file: ./compose/compose.published.yml
-      service: user-api
-
-  task-api:
-    extends:
-      file: ./compose/compose.published.yml
-      service: task-api
-
   front:
     extends:
       file: ./compose/compose.published.yml
