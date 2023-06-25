@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package hotel;
+
+import "google/protobuf/timestamp.proto";
+import "hotel/hotel.proto";
+
+option go_package = "stubs";
+
+service HotelCRUDService {
+    rpc Find (FindRequest) returns (FindResponse);
+}
