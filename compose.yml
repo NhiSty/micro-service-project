@@ -5,6 +5,8 @@ services:
     extends:
       file: ./compose/compose.db.yml
       service: mariadb
+    healthcheck:
+      test: "exit 0"
 
   mongo:
     extends:
@@ -21,10 +23,13 @@ services:
       - 4318:4318
 
   auth-api:
-    command: sh -c "npm i && npx prisma migrate dev"
+    command: sh -c "npx prisma migrate dev"
     extends:
       file: ./compose/compose.published.yml
       service: auth-api
+    depends_on:
+      mariadb:
+        condition: service_healthy
 
   front:
     extends:
@@ -32,11 +37,13 @@ services:
       service: front
 
   user-api:
-    command: sh -c "npm i && npx prisma migrate dev"
+    command: sh -c "npx prisma migrate dev"
     extends:
       file: ./compose/compose.published.yml
       service: user-api
-
+    depends_on:
+      mariadb:
+        condition: service_healthy
 networks:
   default:
     external: true
