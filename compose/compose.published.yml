@@ -22,6 +22,27 @@ services:
       timeout: 10s
       retries: 5
 
+  hotel-api:
+    image: mohammaddocker/tm-user-api
+    environment:
+      - MYSQL_URL=mysql://root:passwd@mariadb:3306/hotel
+      - insecure=false
+      - USER_CERT=/certs/hotel.pem
+      - USER_KEY=/certs/hotel-key.pem
+      - ROOT_CA=/certs/rootCA.pem
+      - PORT=4000
+      - AUTH_API_URL=auth-api:4000
+      - JAEGER_URL=http://tracing:4318/v1/traces
+    # ports:
+    #   - 4000:4000
+    volumes:
+      - ../local/certs:/certs
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
   auth-api:
     image: mohammaddocker/tm-auth-api
     environment:

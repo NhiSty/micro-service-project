@@ -33,6 +33,14 @@ services:
       mariadb:
         condition: service_healthy
 
+  hotel-api:
+    extends:
+      file: ./compose/compose.published.yml
+      service: hotel-api
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
   front:
     extends:
       file: ./compose/compose.published.yml
