@@ -57,10 +57,10 @@ export class AppService {
         });
     }
 
-    findByHotelId(hotelId: string): Promise<Reservation[]> {
+    findByHotelId(hotelId: number): Promise<Reservation[]> {
         return this.prisma.reservation.findMany({
             where: {
-                hotelId: +hotelId,
+                hotelId,
             },
         });
     }

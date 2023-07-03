@@ -2,29 +2,30 @@
 import { Metadata } from "@grpc/grpc-js";
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
+import { Timestamp } from "../../google/protobuf/timestamp";
 
 export const protobufPackage = "reservation";
 
 export interface Reservation {
-  id?: string;
+  id?: number;
   name?: string;
-  hotelId?: string;
-  roomId?: string;
-  checkInDate?: string;
-  checkOutDate?: string;
-  createdAt?: string;
-  updatedAt?: string;
+  hotelId?: number;
+  roomId?: number;
+  checkInDate?: Date;
+  checkOutDate?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface GetReservationRequest {
-  id?: string;
+  id?: number;
 }
 
 export interface ListReservationsRequest {
-  hotelId?: string;
-  roomId?: string;
-  checkInDate?: string;
-  checkOutDate?: string;
+  hotelId?: number;
+  roomId?: number;
+  checkInDate?: Date;
+  checkOutDate?: Date;
 }
 
 export interface ListReservationsResponse {
@@ -33,23 +34,23 @@ export interface ListReservationsResponse {
 
 export interface CreateReservationRequest {
   name?: string;
-  hotelId?: string;
-  roomId?: string;
-  checkInDate?: string;
-  checkOutDate?: string;
+  hotelId?: number;
+  roomId?: number;
+  checkInDate?: Date;
+  checkOutDate?: Date;
 }
 
 export interface UpdateReservationRequest {
-  id?: string;
+  id?: number;
   name?: string;
-  hotelId?: string;
-  roomId?: string;
-  checkInDate?: string;
-  checkOutDate?: string;
+  hotelId?: number;
+  roomId?: number;
+  checkInDate?: Date;
+  checkOutDate?: Date;
 }
 
 export interface DeleteReservationRequest {
-  id?: string;
+  id?: number;
 }
 
 export interface DeleteReservationResponse {
