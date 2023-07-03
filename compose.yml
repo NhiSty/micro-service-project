@@ -8,11 +8,6 @@ services:
     healthcheck:
       test: "exit 0"
 
-  mongo:
-    extends:
-      file: ./compose/compose.db.yml
-      service: mongo
-
   tracing:
     image: jaegertracing/all-in-one:latest
     environment:
@@ -23,10 +18,17 @@ services:
       - 4318:4318
 
   auth-api:
-    command: sh -c "npx prisma migrate dev"
     extends:
       file: ./compose/compose.published.yml
       service: auth-api
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  user-api:
+    extends:
+      file: ./compose/compose.published.yml
+      service: user-api
     depends_on:
       mariadb:
         condition: service_healthy
@@ -36,14 +38,6 @@ services:
       file: ./compose/compose.published.yml
       service: front
 
-  user-api:
-    command: sh -c "npx prisma migrate dev"
-    extends:
-      file: ./compose/compose.published.yml
-      service: user-api
-    depends_on:
-      mariadb:
-        condition: service_healthy
 networks:
   default:
     external: true
