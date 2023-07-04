@@ -30,7 +30,7 @@ export class AppService {
         });
     }
 
-    findByPeriods(start: Date, end: Date): Promise<Reservation[]> {
+    findByPeriods(start: string, end: string): Promise<Reservation[]> {
         return this.prisma.reservation.findMany({
             where: {
                 AND: [

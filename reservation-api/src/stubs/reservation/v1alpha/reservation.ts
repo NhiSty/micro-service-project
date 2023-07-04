@@ -2,7 +2,6 @@
 import { Metadata } from "@grpc/grpc-js";
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
-import { Timestamp } from "../../google/protobuf/timestamp";
 
 export const protobufPackage = "reservation";
 
@@ -11,10 +10,8 @@ export interface Reservation {
   name?: string;
   hotelId?: number;
   roomId?: number;
-  checkInDate?: Date;
-  checkOutDate?: Date;
-  createdAt?: Date;
-  updatedAt?: Date;
+  checkInDate?: string;
+  checkOutDate?: string;
 }
 
 export interface GetReservationRequest {
@@ -24,8 +21,8 @@ export interface GetReservationRequest {
 export interface ListReservationsRequest {
   hotelId?: number;
   roomId?: number;
-  checkInDate?: Date;
-  checkOutDate?: Date;
+  checkInDate?: string;
+  checkOutDate?: string;
 }
 
 export interface ListReservationsResponse {
@@ -36,8 +33,8 @@ export interface CreateReservationRequest {
   name?: string;
   hotelId?: number;
   roomId?: number;
-  checkInDate?: Date;
-  checkOutDate?: Date;
+  checkInDate?: string;
+  checkOutDate?: string;
 }
 
 export interface UpdateReservationRequest {
@@ -45,8 +42,8 @@ export interface UpdateReservationRequest {
   name?: string;
   hotelId?: number;
   roomId?: number;
-  checkInDate?: Date;
-  checkOutDate?: Date;
+  checkInDate?: string;
+  checkOutDate?: string;
 }
 
 export interface DeleteReservationRequest {
@@ -59,7 +56,7 @@ export interface DeleteReservationResponse {
 
 export const RESERVATION_PACKAGE_NAME = "reservation";
 
-export interface ReservationServiceClient {
+export interface ReservationCRUDServiceClient {
   getReservation(request: GetReservationRequest, metadata?: Metadata): Observable<Reservation>;
 
   listReservations(request: ListReservationsRequest, metadata?: Metadata): Observable<ListReservationsResponse>;
@@ -71,7 +68,7 @@ export interface ReservationServiceClient {
   deleteReservation(request: DeleteReservationRequest, metadata?: Metadata): Observable<DeleteReservationResponse>;
 }
 
-export interface ReservationServiceController {
+export interface ReservationCRUDServiceController {
   getReservation(
     request: GetReservationRequest,
     metadata?: Metadata,
@@ -98,7 +95,7 @@ export interface ReservationServiceController {
   ): Promise<DeleteReservationResponse> | Observable<DeleteReservationResponse> | DeleteReservationResponse;
 }
 
-export function ReservationServiceControllerMethods() {
+export function ReservationCRUDServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
       "getReservation",
@@ -109,14 +106,14 @@ export function ReservationServiceControllerMethods() {
     ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcMethod("ReservationService", method)(constructor.prototype[method], method, descriptor);
+      GrpcMethod("ReservationCRUDService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcStreamMethod("ReservationService", method)(constructor.prototype[method], method, descriptor);
+      GrpcStreamMethod("ReservationCRUDService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const RESERVATION_SERVICE_NAME = "ReservationService";
+export const RESERVATION_CR_UD_SERVICE_NAME = "ReservationCRUDService";
