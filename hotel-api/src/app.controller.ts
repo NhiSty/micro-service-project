@@ -65,7 +65,17 @@ export class AppController implements HotelCRUDServiceController {
   }
 
   async update(request: UpdateHotelRequest): Promise<UpdateHotelResponse> {
-    return null;
+    const { id, ...updateData } = request;
+
+    const hotel = await this.appService.findById(id);
+
+    if (!hotel) {
+      throw new Error(`Hotel with ID ${id} not found.`);
+    }
+
+    const updatedHotel = await this.appService.update(id, updateData);
+
+    return { hotel: updatedHotel };
   }
 
   async delete(request: DeleteHotelRequest): Promise<DeleteHotelResponse> {
