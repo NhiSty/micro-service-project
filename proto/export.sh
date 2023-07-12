@@ -5,4 +5,4 @@ npx buf export . --output ../nestjs-grpc-tutorial/src/proto
 npx buf export . --output ../user-api/src/proto
 npx buf export . --output ../hotel-api/src/proto
 
-buf export . --output ../reservation-api/src/proto
+npx buf export . --output ../reservation-api/src/proto
