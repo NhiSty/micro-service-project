@@ -11,6 +11,7 @@ services:
       file: ./compose/compose.db.yml
       service: mongo
 
+
   tracing:
     image: jaegertracing/all-in-one:latest
     environment:
@@ -22,16 +23,15 @@ services:
     extends:
       file: ./compose/compose.published.yml
       service: auth-api
+    depends_on:
+      - mariadb
 
   user-api:
     extends:
       file: ./compose/compose.published.yml
       service: user-api
-
-  task-api:
-    extends:
-      file: ./compose/compose.published.yml
-      service: task-api
+    depends_on:
+      - mariadb
 
   front:
     extends:

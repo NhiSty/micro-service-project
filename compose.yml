@@ -5,11 +5,8 @@ services:
     extends:
       file: ./compose/compose.db.yml
       service: mariadb
-
-  mongo:
-    extends:
-      file: ./compose/compose.db.yml
-      service: mongo
+    healthcheck:
+      test: "exit 0"
 
   tracing:
     image: jaegertracing/all-in-one:latest
@@ -21,21 +18,41 @@ services:
       - 4318:4318
 
   auth-api:
-    command: sh -c "npm i && npx prisma migrate dev"
     extends:
       file: ./compose/compose.published.yml
       service: auth-api
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  user-api:
+    extends:
+      file: ./compose/compose.published.yml
+      service: user-api
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  hotel-api:
+    extends:
+      file: ./compose/compose.published.yml
+      service: hotel-api
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  reservation-api:
+    extends:
+      file: ./compose/compose.published.yml
+      service: reservation-api
+    depends_on:
+      mariadb:
+        condition: service_healthy
 
   front:
     extends:
       file: ./compose/compose.published.yml
       service: front
-
-  user-api:
-    command: sh -c "npm i && npx prisma migrate dev"
-    extends:
-      file: ./compose/compose.published.yml
-      service: user-api
 
 networks:
   default:
