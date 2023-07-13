@@ -6,52 +6,52 @@ import { Observable } from "rxjs";
 export const protobufPackage = "reservation";
 
 export interface Reservation {
-  id?: number;
-  name?: string;
-  hotelId?: number;
-  roomId?: number;
-  checkInDate?: string;
-  checkOutDate?: string;
+  id?: number | undefined;
+  name?: string | undefined;
+  hotelId?: number | undefined;
+  roomId?: number | undefined;
+  checkInDate?: string | undefined;
+  checkOutDate?: string | undefined;
 }
 
 export interface GetReservationRequest {
-  id?: number;
+  id?: number | undefined;
 }
 
 export interface ListReservationsRequest {
-  hotelId?: number;
-  roomId?: number;
-  checkInDate?: string;
-  checkOutDate?: string;
+  hotelId?: number | undefined;
+  roomId?: number | undefined;
+  checkInDate?: string | undefined;
+  checkOutDate?: string | undefined;
 }
 
 export interface ListReservationsResponse {
-  reservations?: Reservation[];
+  reservations?: Reservation[] | undefined;
 }
 
 export interface CreateReservationRequest {
-  name?: string;
-  hotelId?: number;
-  roomId?: number;
-  checkInDate?: string;
-  checkOutDate?: string;
+  name?: string | undefined;
+  hotelId?: number | undefined;
+  roomId?: number | undefined;
+  checkInDate?: string | undefined;
+  checkOutDate?: string | undefined;
 }
 
 export interface UpdateReservationRequest {
-  id?: number;
-  name?: string;
-  hotelId?: number;
-  roomId?: number;
-  checkInDate?: string;
-  checkOutDate?: string;
+  id?: number | undefined;
+  name?: string | undefined;
+  hotelId?: number | undefined;
+  roomId?: number | undefined;
+  checkInDate?: string | undefined;
+  checkOutDate?: string | undefined;
 }
 
 export interface DeleteReservationRequest {
-  id?: number;
+  id?: number | undefined;
 }
 
 export interface DeleteReservationResponse {
-  reservation?: Reservation;
+  reservation?: Reservation | undefined;
 }
 
 export const RESERVATION_PACKAGE_NAME = "reservation";
