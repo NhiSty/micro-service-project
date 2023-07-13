@@ -41,6 +41,14 @@ services:
       mariadb:
         condition: service_healthy
 
+  reservation-api:
+    extends:
+      file: ./compose/compose.published.yml
+      service: reservation-api
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
   front:
     extends:
       file: ./compose/compose.published.yml
