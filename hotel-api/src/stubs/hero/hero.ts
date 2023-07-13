@@ -6,45 +6,45 @@ import { Observable } from "rxjs";
 export const protobufPackage = "hero";
 
 export interface Hero {
-  id?: number;
-  name?: string;
-  power?: number;
-  hp?: number;
+  id?: number | undefined;
+  name?: string | undefined;
+  power?: number | undefined;
+  hp?: number | undefined;
 }
 
 export interface GetRequest {
-  id?: string;
+  id?: string | undefined;
 }
 
 export interface GetResponse {
-  heroes?: Hero[];
+  heroes?: Hero[] | undefined;
 }
 
 export interface CreateRequest {
-  power?: number;
-  name?: string;
+  power?: number | undefined;
+  name?: string | undefined;
 }
 
 export interface CreateResponse {
-  hero?: Hero;
+  hero?: Hero | undefined;
 }
 
 export interface UpdateRequest {
-  id?: string;
-  power?: number;
-  name?: string;
+  id?: string | undefined;
+  power?: number | undefined;
+  name?: string | undefined;
 }
 
 export interface UpdateResponse {
-  hero?: Hero;
+  hero?: Hero | undefined;
 }
 
 export interface DeleteRequest {
-  id?: string;
+  id?: string | undefined;
 }
 
 export interface DeleteResponse {
-  hero?: Hero;
+  hero?: Hero | undefined;
 }
 
 export const HERO_PACKAGE_NAME = "hero";

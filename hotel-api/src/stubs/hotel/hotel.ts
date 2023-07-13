@@ -6,70 +6,70 @@ import { Observable } from "rxjs";
 export const protobufPackage = "hotel";
 
 export interface Hotel {
-  id?: number;
-  name?: string;
-  address?: string;
-  city?: string;
-  country?: string;
-  rooms?: HotelRoom[];
+  id?: number | undefined;
+  name?: string | undefined;
+  address?: string | undefined;
+  city?: string | undefined;
+  country?: string | undefined;
+  rooms?: HotelRoom[] | undefined;
 }
 
 export interface HotelRoom {
-  id?: number;
-  roomNumber?: number;
-  available?: boolean;
-  hotelId?: number;
+  id?: number | undefined;
+  roomNumber?: number | undefined;
+  available?: boolean | undefined;
+  hotelId?: number | undefined;
 }
 
 export interface FindRequest {
-  id?: number;
-  name?: string;
+  id?: number | undefined;
+  name?: string | undefined;
 }
 
 export interface FindResponse {
-  hotels?: Hotel[];
+  hotels?: Hotel[] | undefined;
 }
 
 export interface CreateHotelRequest {
-  name?: string;
-  address?: string;
-  city?: string;
-  country?: string;
-  rooms?: HotelRoom[];
+  name?: string | undefined;
+  address?: string | undefined;
+  city?: string | undefined;
+  country?: string | undefined;
+  rooms?: HotelRoom[] | undefined;
 }
 
 export interface CreateHotelResponse {
-  hotel?: Hotel;
+  hotel?: Hotel | undefined;
 }
 
 export interface UpdateHotelRequest {
-  id?: number;
-  name?: string;
-  address?: string;
-  city?: string;
-  country?: string;
-  rooms?: HotelRoom[];
+  id?: number | undefined;
+  name?: string | undefined;
+  address?: string | undefined;
+  city?: string | undefined;
+  country?: string | undefined;
+  rooms?: HotelRoom[] | undefined;
 }
 
 export interface UpdateHotelResponse {
-  hotel?: Hotel;
+  hotel?: Hotel | undefined;
 }
 
 export interface DeleteHotelRequest {
-  id?: number;
+  id?: number | undefined;
 }
 
 export interface DeleteHotelResponse {
-  hotel?: Hotel;
+  hotel?: Hotel | undefined;
 }
 
 export interface CreateHotelRoomRequest {
-  hotelId?: number;
-  roomNumber?: number;
+  hotelId?: number | undefined;
+  roomNumber?: number | undefined;
 }
 
 export interface CreateHotelRoomResponse {
-  hotelRoom?: HotelRoom;
+  hotelRoom?: HotelRoom | undefined;
 }
 
 export const HOTEL_PACKAGE_NAME = "hotel";
