@@ -12,11 +12,15 @@ import {
   UpdateReservationRequest,
 } from './stubs/reservation/v1alpha/reservation';
 import { Metadata } from '@grpc/grpc-js';
+import { HotelService } from './hotel/hotel.service';
 
 @Controller()
 @ReservationCRUDServiceControllerMethods()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly hotelService: HotelService,
+  ) {}
 
   async getReservation(
     request: GetReservationRequest,
@@ -53,10 +57,16 @@ export class AppController {
     request: CreateReservationRequest,
     metadata?: Metadata,
   ): Promise<Reservation> {
-    const hotel = this.appService.findHotelById(request.hotelId);
 
-    console.log('------------------');
-    console.log(hotel);
+
+
+    const hotel = this.hotelService.findHotel({
+      id: request.hotelId,
+    });
+
+    if (!hotel) {
+      throw new Error('Hotel not found');
+    }
 
     return this.appService.create({
       name: request.name,
