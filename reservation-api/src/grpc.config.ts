@@ -12,7 +12,7 @@ import { HOTEL_PACKAGE_NAME } from './stubs/hotel/hotel';
 export const grpcConfig = addReflectionToGrpcConfig({
   transport: Transport.GRPC,
   options: {
-    url: '0.0.0.0:6003',
+    url: '0.0.0.0:4004',
     package: RESERVATION_PACKAGE_NAME,
     protoPath: join(__dirname, 'proto/reservation/v1alpha/reservation.proto'),
   },
@@ -22,7 +22,7 @@ export const grpcConfigHotel: ClientProviderOptions = {
   name: HOTEL_PACKAGE_NAME,
   transport: Transport.GRPC,
   options: {
-    url: '0.0.0.0:6002',
+    url: '0.0.0.0:4003',
     package: HOTEL_PACKAGE_NAME,
     loader: {
       includeDirs: [join(__dirname, 'proto')],

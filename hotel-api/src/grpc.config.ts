@@ -7,7 +7,7 @@ import { addReflectionToGrpcConfig } from 'nestjs-grpc-reflection';
 export const grpcConfig = addReflectionToGrpcConfig({
   transport: Transport.GRPC,
   options: {
-    url: '0.0.0.0:6002',
+    url: '0.0.0.0:4003',
     package: HOTEL_PACKAGE_NAME,
     protoPath: join(__dirname, 'proto/hotel/hotel.proto'),
   },
