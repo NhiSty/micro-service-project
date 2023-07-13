@@ -65,7 +65,7 @@ export class AppController implements HotelCRUDServiceController {
   }
 
   async update(request: UpdateHotelRequest): Promise<UpdateHotelResponse> {
-    const { id, ...updateData } = request;
+    const { id } = request;
 
     const hotel = await this.appService.findById(id);
 
@@ -73,7 +73,12 @@ export class AppController implements HotelCRUDServiceController {
       throw new Error(`Hotel with ID ${id} not found.`);
     }
 
-    const updatedHotel = await this.appService.update(id, updateData);
+    const updatedHotel = await this.appService.update(id, {
+      name: request.name,
+      address: request.address,
+      city: request.city,
+      country: request.country,
+    });
 
     return { hotel: updatedHotel };
   }
