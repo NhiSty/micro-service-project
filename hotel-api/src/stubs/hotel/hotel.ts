@@ -48,7 +48,6 @@ export interface UpdateHotelRequest {
   address?: string | undefined;
   city?: string | undefined;
   country?: string | undefined;
-  rooms?: HotelRoom[] | undefined;
 }
 
 export interface UpdateHotelResponse {

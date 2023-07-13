@@ -52,7 +52,6 @@ message UpdateHotelRequest {
     string address = 3;
     string city = 4;
     string country = 5;
-    repeated HotelRoom rooms = 6;
 }
 
 message UpdateHotelResponse {

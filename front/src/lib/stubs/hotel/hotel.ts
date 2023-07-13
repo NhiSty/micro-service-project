@@ -142,10 +142,6 @@ export interface UpdateHotelRequest {
      * @generated from protobuf field: string country = 5;
      */
     country: string;
-    /**
-     * @generated from protobuf field: repeated hotel.HotelRoom rooms = 6;
-     */
-    rooms: HotelRoom[];
 }
 /**
  * @generated from protobuf message hotel.UpdateHotelResponse
@@ -577,12 +573,11 @@ class UpdateHotelRequest$Type extends MessageType<UpdateHotelRequest> {
             { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "address", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "city", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "country", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "rooms", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => HotelRoom }
+            { no: 5, name: "country", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<UpdateHotelRequest>): UpdateHotelRequest {
-        const message = { id: 0, name: "", address: "", city: "", country: "", rooms: [] };
+        const message = { id: 0, name: "", address: "", city: "", country: "" };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<UpdateHotelRequest>(this, message, value);
@@ -607,9 +602,6 @@ class UpdateHotelRequest$Type extends MessageType<UpdateHotelRequest> {
                     break;
                 case /* string country */ 5:
                     message.country = reader.string();
-                    break;
-                case /* repeated hotel.HotelRoom rooms */ 6:
-                    message.rooms.push(HotelRoom.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -638,9 +630,6 @@ class UpdateHotelRequest$Type extends MessageType<UpdateHotelRequest> {
         /* string country = 5; */
         if (message.country !== "")
             writer.tag(5, WireType.LengthDelimited).string(message.country);
-        /* repeated hotel.HotelRoom rooms = 6; */
-        for (let i = 0; i < message.rooms.length; i++)
-            HotelRoom.internalBinaryWrite(message.rooms[i], writer.tag(6, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
