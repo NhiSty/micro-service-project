@@ -41,6 +41,27 @@ export class AppService {
     });
   }
 
+  async updateRoom(hotelId: number, roomId: number, data): Promise<HotelRoom> {
+    console.log('dans updateRoom');
+    console.log(data);
+
+    console.log('hotelId');
+    console.log(hotelId);
+
+    console.log('roomId');
+    console.log(roomId);
+
+    const toto = await this.prisma.hotelRoom.update({
+      where: { id: roomId },
+      data: { available: false },
+    });
+
+    console.log('prisma');
+    console.log(toto);
+
+    return toto;
+  }
+
   delete(id: number): Promise<Hotel> {
     return this.prisma.hotel.delete({
       where: { id },

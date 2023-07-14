@@ -13,6 +13,8 @@ import {
   DeleteHotelRequest,
   DeleteHotelResponse,
   CreateHotelRoomRequest,
+  UpdateStatutOfRoomInHotelRequest,
+  UpdateStatutOfRoomInHotelResponse,
 } from './stubs/hotel/hotel';
 import { Metadata } from '@grpc/grpc-js';
 
@@ -65,7 +67,7 @@ export class AppController implements HotelCRUDServiceController {
   }
 
   async update(request: UpdateHotelRequest): Promise<UpdateHotelResponse> {
-    const { id } = request;
+    const { id, rooms, ...updateData } = request;
 
     const hotel = await this.appService.findById(id);
 
@@ -73,12 +75,30 @@ export class AppController implements HotelCRUDServiceController {
       throw new Error(`Hotel with ID ${id} not found.`);
     }
 
-    const updatedHotel = await this.appService.update(id, {
-      name: request.name,
-      address: request.address,
-      city: request.city,
-      country: request.country,
+    const updatedHotel = await this.appService.update(id, updateData);
+
+    return { hotel: updatedHotel };
+  }
+
+  async updateRoomInHotel(
+    request: UpdateStatutOfRoomInHotelRequest,
+  ): Promise<UpdateStatutOfRoomInHotelResponse> {
+    const { hotelId, id } = request;
+
+    const hotel = await this.appService.findById(hotelId);
+
+    if (!hotel) {
+      throw new Error(`Hotel with ID ${hotelId} not found.`);
+    }
+
+    console.log('avant appel');
+    console.log('hotelId');
+    console.log(hotelId);
+
+    const updatedHotel = await this.appService.updateRoom(hotelId, id, {
+      available: false,
     });
+    console.log('apres appel');
 
     return { hotel: updatedHotel };
   }
