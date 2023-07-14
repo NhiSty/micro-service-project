@@ -57,11 +57,8 @@ export class AppController {
     request: CreateReservationRequest,
     metadata?: Metadata,
   ): Promise<Reservation> {
-
-
-
-    const hotel = this.hotelService.findHotel({
-      id: request.hotelId,
+    const hotel = await this.hotelService.findHotel({
+      id: request.hotelId
     });
 
     if (!hotel) {
@@ -70,7 +67,7 @@ export class AppController {
 
     return this.appService.create({
       name: request.name,
-      hotelId: request.hotelId,
+      hotelId: hotel.id,
       roomId: request.roomId,
       checkInDate: request.checkInDate,
       checkOutDate: request.checkOutDate,
