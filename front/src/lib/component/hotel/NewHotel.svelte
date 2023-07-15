@@ -8,7 +8,7 @@
 </script>
 
 <form
-	action="/task?/newTask"
+	action="/hotel?/newHotel"
 	method="POST"
 	use:enhance={() => {
 		return async ({ result }) => {
@@ -37,5 +37,5 @@
 			/>
 		</label>
 	</div>
-	<button class="btn btn-info btn-xs"> Create Task </button>
+	<button class="btn btn-info btn-xs"> Create Hotel </button>
 </form>

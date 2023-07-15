@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import modal from '$src/stores/modal';
-	import type { ITask } from '../../helper/taskDto';
+	import type { IHotel } from '../../helper/hotelDto';
 	import FormError from '../FormError.svelte';
 
 	let error = '';
-	export let task: ITask;
+	export let hotel: IHotel;
 </script>
 
 <form
 	method="post"
-	action="/task?/addField"
+	action="/hotel?/addField"
 	use:enhance={({ data, form }) => {
-		data.append('taskName', task.name);
+		data.append('hotelName', hotel.name);
 
 		return ({ result }) => {
 			if (result.type === 'success') {

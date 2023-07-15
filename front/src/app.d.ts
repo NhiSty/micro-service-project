@@ -4,9 +4,9 @@
 import type { AuthServiceClient } from './lib/stubs/auth/v1alpha/service';
 import type {
 	FieldServiceClient,
-	TaskServiceClient,
+	HotelServiceClient,
 	UsageServiceClient
-} from './lib/stubs/task/v1beta/task';
+} from './lib/stubs/hotel/v1beta/hotel';
 import type { UserServiceClient } from './lib/stubs/user/v1alpha/service';
 
 // and what to do when importing types
@@ -14,8 +14,8 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			taskClients: {
-				crudClient: TaskServiceClient;
+			hotelClients: {
+				crudClient: HotelServiceClient;
 				fieldClient: FieldServiceClient;
 				usageClient: UsageServiceClient;
 			};

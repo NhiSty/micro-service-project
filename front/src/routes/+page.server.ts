@@ -1,15 +1,15 @@
 import type { PageServerLoad } from './$types';
-import { ListTasksRequest } from '$lib/stubs/task/v1beta/task';
-import { toJson } from '$src/lib/helper/taskDto';
+import { ListHotelsRequest } from '$lib/stubs/hotel/v1beta/hotel';
+import { toJson } from '$src/lib/helper/hotelDto';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const listTaskRequest = ListTasksRequest.create();
-	const request = await locals.taskClients.crudClient.listTasks(listTaskRequest);
-	const listTasksResponse = request.response;
+	const listHotelRequest = ListHotelsRequest.create();
+	const request = await locals.hotelClients.crudClient.listHotels(listHotelRequest);
+	const listHotelsResponse = request.response;
 
-	const tasks = listTasksResponse.tasks.map(toJson);
+	const hotels = listHotelsResponse.hotels.map(toJson);
 
 	return {
-		tasks
+		hotels
 	};
 };

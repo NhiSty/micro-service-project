@@ -1,24 +1,24 @@
-import { taskStore } from '$src/stores/task';
+import { hotelStore } from '$src/stores/hotel';
 import { toast } from '@zerodevx/svelte-toast';
 import { showInfoToast } from './notification';
 
-export const connectToTaskStream = () => {
-	const sse = new EventSource('/task');
+export const connectToHotelStream = () => {
+	const sse = new EventSource('/hotel');
 	sse.onmessage = (msg) => {
 		try {
 			const data = JSON.parse(msg.data);
 			switch (data.eventType) {
 				case 'create':
-					taskStore.add(data.task);
-					showInfoToast(`Task <strong>${data.task.name}</strong> created.`);
+					hotelStore.add(data.hotel);
+					showInfoToast(`Hotel <strong>${data.hotel.name}</strong> created.`);
 					break;
 				case 'update':
-					taskStore.updateOne(data.task);
-					showInfoToast(`Task <strong>${data.task.name}</strong> updated.`);
+					hotelStore.updateOne(data.hotel);
+					showInfoToast(`Hotel <strong>${data.hotel.name}</strong> updated.`);
 					break;
 				case 'delete':
-					taskStore.remove(data.task.name);
-					showInfoToast(`Task <strong>${data.task.name}</strong> deleted.`);
+					hotelStore.remove(data.hotel.name);
+					showInfoToast(`Hotel <strong>${data.hotel.name}</strong> deleted.`);
 					break;
 			}
 		} catch (error) {

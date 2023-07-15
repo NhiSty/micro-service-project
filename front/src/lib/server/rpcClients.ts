@@ -2,9 +2,9 @@ import { GrpcTransport } from '@protobuf-ts/grpc-transport';
 import { ChannelCredentials } from '@grpc/grpc-js';
 import {
 	FieldServiceClient,
-	TaskServiceClient,
+	HotelServiceClient,
 	UsageServiceClient
-} from '$lib/stubs/task/v1beta/task.client';
+} from '$lib/stubs/hotel/v1beta/hotel.client';
 import fs from 'fs';
 import { UserServiceClient } from '$src/lib/stubs/user/v1alpha/service.client';
 import { AuthServiceClient } from '$src/lib/stubs/auth/v1alpha/service.client';
@@ -48,13 +48,13 @@ const authTransport = new GrpcTransport({
 	]
 });
 
-const taskTransport = new GrpcTransport({
-	host: env.TASK_API_URL as string,
+const hotelTransport = new GrpcTransport({
+	host: env.HOTEL_API_URL as string,
 	channelCredentials: credentials,
 	interceptors: [
 		{
-			interceptUnary: otelInterceptor<UnaryCall>(env.TASK_API_URL),
-			interceptServerStreaming: otelInterceptor<ServerStreamingCall>(env.TASK_API_URL)
+			interceptUnary: otelInterceptor<UnaryCall>(env.HOTEL_API_URL),
+			interceptServerStreaming: otelInterceptor<ServerStreamingCall>(env.HOTEL_API_URL)
 		},
 		{
 			interceptUnary: errorLoggerInterceptor
@@ -62,10 +62,10 @@ const taskTransport = new GrpcTransport({
 	]
 });
 
-export const taskClients = {
-	crudClient: new TaskServiceClient(taskTransport),
-	fieldClient: new FieldServiceClient(taskTransport),
-	usageClient: new UsageServiceClient(taskTransport)
+export const hotelClients = {
+	crudClient: new HotelServiceClient(hotelTransport),
+	fieldClient: new FieldServiceClient(hotelTransport),
+	usageClient: new UsageServiceClient(hotelTransport)
 };
 
 export const userClient = new UserServiceClient(userTransport);

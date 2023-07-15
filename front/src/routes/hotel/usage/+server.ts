@@ -1,15 +1,14 @@
 import { sse } from '$src/lib/helper/sse';
-import { toPb } from '$src/lib/helper/taskDto';
-import { UpdateTaskRequest } from '$lib/stubs/task/v1beta/task';
+import { UsageRequest } from '$src/lib/stubs/hotel/v1beta/hotel';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = ({ locals }) => {
 	try {
-		const stream = locals.taskClients.crudClient.streamTasks({});
+		const stream = locals.hotelClients.usageClient.usingStream(UsageRequest.create());
 
 		return sse<any>(async ({ write }) => {
 			for await (const msg of stream.responses) {
-				if (msg.task) write({ data: msg });
+				if (msg.username) write({ data: msg });
 			}
 		});
 	} catch (error) {
@@ -20,13 +19,15 @@ export const GET: RequestHandler = ({ locals }) => {
 };
 
 export const POST: RequestHandler = async ({ locals, request }) => {
-	const data = await request.json();
-
 	try {
-		const updateTaskRequest = UpdateTaskRequest.create({
-			task: toPb(data)
+		const data = await request.json();
+		const usageRequest = UsageRequest.create({
+			username: data.username,
+			hotelName: data.hotelName,
+			eventType: data.eventType
 		});
-		await locals.taskClients.crudClient.updateTask(updateTaskRequest);
+
+		await locals.hotelClients.usageClient.using(usageRequest);
 
 		return new Response();
 	} catch (error: any) {
@@ -36,4 +37,3 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		});
 	}
 };
-

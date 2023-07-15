@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { ITask } from '../../helper/taskDto';
+	import type { IHotel } from '../../helper/hotelDto';
 
-	export let task: ITask;
+	export let hotel: IHotel;
 	export let fieldToRemove = '';
 </script>
 
 <form
 	method="post"
-	action="/task?/removeTask"
+	action="/hotel?/removeHotel"
 	use:enhance={({ data }) => {
-		data.append('taskName', task.name);
+		data.append('hotelName', hotel.name);
 		data.append('fieldName', fieldToRemove);
 	}}
 >

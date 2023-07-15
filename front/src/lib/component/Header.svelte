@@ -1,12 +1,12 @@
 <script lang="ts">
 	import modal from '$src/stores/modal';
-	import { relativeDate, searchTerm, taskStore } from '$src/stores/task';
-	import NewTask from './task/NewTask.svelte';
+	import { relativeDate, searchTerm, hotelStore } from '$src/stores/hotel';
+	import NewHotel from './hotel/NewHotel.svelte';
 	import FaUserSecret from 'svelte-icons/fa/FaUserSecret.svelte';
 	import FaUserTie from 'svelte-icons/fa/FaUserTie.svelte';
 	import { muteToast, username } from '$src/stores/user';
 	import { sendUsage } from '../service/usage';
-	import { EventType } from '../stubs/task/v1beta/task';
+	import { EventType } from '../stubs/hotel/v1beta/hotel';
 	import Login from './auth/Login.svelte';
 	import Logout from './auth/Logout.svelte';
 
@@ -19,9 +19,9 @@
 		}
 	];
 
-	const handleNewTask = () => {
+	const handleNewHotel = () => {
 		sendUsage(EventType.CREATE, '');
-		modal.open(NewTask as any);
+		modal.open(NewHotel as any);
 	};
 
 	const handleSession = () => {
@@ -84,10 +84,10 @@
 							>
 						</a>
 						<ul class="p-2 bg-base-100">
-							<li on:click={() => taskStore.sortByDate()}><a>Date (⬆)</a></li>
-							<li on:click={() => taskStore.sortByDate(false)}><a>Date (⬇)</a></li>
-							<li on:click={() => taskStore.sortByName()}><a>Name (⬆)</a></li>
-							<li on:click={() => taskStore.sortByName(false)}><a>Name (⬇)</a></li>
+							<li on:click={() => hotelStore.sortByDate()}><a>Date (⬆)</a></li>
+							<li on:click={() => hotelStore.sortByDate(false)}><a>Date (⬇)</a></li>
+							<li on:click={() => hotelStore.sortByName()}><a>Name (⬆)</a></li>
+							<li on:click={() => hotelStore.sortByName(false)}><a>Name (⬇)</a></li>
 						</ul>
 					</li>
 					<li on:click={() => relativeDate.update((r) => !r)}>
@@ -98,7 +98,7 @@
 					</li>
 				</ul>
 			</div>
-			<a class="btn btn-ghost normal-case text-xl" href="/">gRPC Task Manager</a>
+			<a class="btn btn-ghost normal-case text-xl" href="/">gRPC Hotel Manager</a>
 		</div>
 		<div class="navbar-center hidden lg:flex">
 			<ul class="menu menu-horizontal px-1 z-20">
@@ -130,10 +130,10 @@
 						>
 					</a>
 					<ul class="p-2 bg-base-100">
-						<li on:click={() => taskStore.sortByDate()}><a>Date (⬆)</a></li>
-						<li on:click={() => taskStore.sortByDate(false)}><a>Date (⬇)</a></li>
-						<li on:click={() => taskStore.sortByName()}><a>Name (⬆)</a></li>
-						<li on:click={() => taskStore.sortByName(false)}><a>Name (⬇)</a></li>
+						<li on:click={() => hotelStore.sortByDate()}><a>Date (⬆)</a></li>
+						<li on:click={() => hotelStore.sortByDate(false)}><a>Date (⬇)</a></li>
+						<li on:click={() => hotelStore.sortByName()}><a>Name (⬆)</a></li>
+						<li on:click={() => hotelStore.sortByName(false)}><a>Name (⬇)</a></li>
 					</ul>
 				</li>
 				<li on:click={() => relativeDate.update((r) => !r)}>
@@ -152,7 +152,7 @@
 					<FaUserSecret />
 				{/if}
 			</button>
-			<button class="btn btn-primary btn-square" on:click={handleNewTask}>+</button>
+			<button class="btn btn-primary btn-square" on:click={handleNewHotel}>+</button>
 		</div>
 	</div>
 </div>

@@ -19,6 +19,6 @@
 		<p>Copyright © 2023 - <a href="https://github.com/MohammadBnei" class="link" >Mohammad-Amine BANAEI</a> - All right reserved</p>
 	</div>
 	<div class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-		<a href="https://github.com/MohammadBnei/grpc-task-manager" class="h-6 w-6"><FaGithub /></a>
+		<a href="https://github.com/Nhisty/micro-service-project" class="h-6 w-6"><FaGithub /></a>
 	</div>
 </footer>

@@ -2,7 +2,7 @@
 
 ## Goal
 
-This is the front-end part of the grpc task manager application. Its aim is to provide a gRPC transcription to the browser, using sveltekit endpoint to translate from and to the technology.
+This is the front-end part of the grpc hotel manager application. Its aim is to provide a gRPC transcription to the browser, using sveltekit endpoint to translate from and to the technology.
 
 ## How it works
 
