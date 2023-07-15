@@ -1,8 +1,14 @@
 // Filename : grpc.config.ts
-import {ClientProviderOptions, Transport,} from '@nestjs/microservices';
-import {RESERVATION_CR_UD_SERVICE_NAME, RESERVATION_PACKAGE_NAME} from './stubs/reservation/v1alpha/reservation';
-import {join} from 'path';
-import {HOTEL_CR_UD_SERVICE_NAME, HOTEL_PACKAGE_NAME} from './stubs/hotel/hotel';
+import { ClientProviderOptions, Transport } from '@nestjs/microservices';
+import {
+  RESERVATION_CR_UD_SERVICE_NAME,
+  RESERVATION_PACKAGE_NAME,
+} from './stubs/reservation/v1alpha/reservation';
+import { join } from 'path';
+import {
+  HOTEL_CR_UD_SERVICE_NAME,
+  HOTEL_PACKAGE_NAME,
+} from './stubs/hotel/hotel';
 
 export const grpcConfig: ClientProviderOptions = {
   name: RESERVATION_CR_UD_SERVICE_NAME,
@@ -12,7 +18,7 @@ export const grpcConfig: ClientProviderOptions = {
     package: RESERVATION_PACKAGE_NAME,
     protoPath: join(__dirname, 'proto/reservation/v1alpha/reservation.proto'),
   },
-}
+};
 
 export const grpcConfigHotel: ClientProviderOptions = {
   name: HOTEL_CR_UD_SERVICE_NAME,

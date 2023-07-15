@@ -90,15 +90,9 @@ export class AppController implements HotelCRUDServiceController {
     if (!hotel) {
       throw new Error(`Hotel with ID ${hotelId} not found.`);
     }
-
-    console.log('avant appel');
-    console.log('hotelId');
-    console.log(hotelId);
-
     const updatedHotel = await this.appService.updateRoom(hotelId, id, {
       available: false,
     });
-    console.log('apres appel');
 
     return { hotel: updatedHotel };
   }

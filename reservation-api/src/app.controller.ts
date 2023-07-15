@@ -58,11 +58,29 @@ export class AppController {
     metadata?: Metadata,
   ): Promise<Reservation> {
     const hotel = await this.hotelService.findHotel({
-      id: request.hotelId
+      id: request.hotelId,
     });
 
     if (!hotel) {
       throw new Error('Hotel not found');
+    }
+
+    const roomId = request.roomId;
+
+    // Find the room with the specified ID
+    const roomToUpdate = hotel?.rooms.find((room) => room.id === roomId);
+
+    console.log('dans reservation api');
+    if (roomToUpdate) {
+      // Change the status of the room
+      try {
+        await this.hotelService.changeStatutOfChamber({
+          hotelId: hotel.id,
+          id: roomId,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     return this.appService.create({

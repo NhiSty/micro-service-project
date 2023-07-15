@@ -22,6 +22,7 @@ service HotelCRUDService {
     rpc Find (FindRequest) returns (FindResponse);
     rpc Create (CreateHotelRequest) returns (CreateHotelResponse);
     rpc Update (UpdateHotelRequest) returns (UpdateHotelResponse);
+    rpc UpdateRoomInHotel (UpdateStatutOfRoomInHotelRequest) returns (UpdateStatutOfRoomInHotelResponse);
     rpc Delete (DeleteHotelRequest) returns (DeleteHotelResponse);
 }
 
@@ -52,9 +53,19 @@ message UpdateHotelRequest {
     string address = 3;
     string city = 4;
     string country = 5;
+    repeated HotelRoom rooms = 6;
 }
 
 message UpdateHotelResponse {
+    Hotel hotel = 1;
+}
+
+message UpdateStatutOfRoomInHotelRequest {
+    int32 hotelId = 1;
+    int32 id = 2;
+}
+
+message UpdateStatutOfRoomInHotelResponse {
     Hotel hotel = 1;
 }
 

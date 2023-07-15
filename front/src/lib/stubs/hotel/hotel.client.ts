@@ -6,6 +6,8 @@ import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { HotelCRUDService } from "./hotel";
 import type { DeleteHotelResponse } from "./hotel";
 import type { DeleteHotelRequest } from "./hotel";
+import type { UpdateStatutOfRoomInHotelResponse } from "./hotel";
+import type { UpdateStatutOfRoomInHotelRequest } from "./hotel";
 import type { UpdateHotelResponse } from "./hotel";
 import type { UpdateHotelRequest } from "./hotel";
 import type { CreateHotelResponse } from "./hotel";
@@ -31,6 +33,10 @@ export interface IHotelCRUDServiceClient {
      * @generated from protobuf rpc: Update(hotel.UpdateHotelRequest) returns (hotel.UpdateHotelResponse);
      */
     update(input: UpdateHotelRequest, options?: RpcOptions): UnaryCall<UpdateHotelRequest, UpdateHotelResponse>;
+    /**
+     * @generated from protobuf rpc: UpdateRoomInHotel(hotel.UpdateStatutOfRoomInHotelRequest) returns (hotel.UpdateStatutOfRoomInHotelResponse);
+     */
+    updateRoomInHotel(input: UpdateStatutOfRoomInHotelRequest, options?: RpcOptions): UnaryCall<UpdateStatutOfRoomInHotelRequest, UpdateStatutOfRoomInHotelResponse>;
     /**
      * @generated from protobuf rpc: Delete(hotel.DeleteHotelRequest) returns (hotel.DeleteHotelResponse);
      */
@@ -67,10 +73,17 @@ export class HotelCRUDServiceClient implements IHotelCRUDServiceClient, ServiceI
         return stackIntercept<UpdateHotelRequest, UpdateHotelResponse>("unary", this._transport, method, opt, input);
     }
     /**
+     * @generated from protobuf rpc: UpdateRoomInHotel(hotel.UpdateStatutOfRoomInHotelRequest) returns (hotel.UpdateStatutOfRoomInHotelResponse);
+     */
+    updateRoomInHotel(input: UpdateStatutOfRoomInHotelRequest, options?: RpcOptions): UnaryCall<UpdateStatutOfRoomInHotelRequest, UpdateStatutOfRoomInHotelResponse> {
+        const method = this.methods[3], opt = this._transport.mergeOptions(options);
+        return stackIntercept<UpdateStatutOfRoomInHotelRequest, UpdateStatutOfRoomInHotelResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
      * @generated from protobuf rpc: Delete(hotel.DeleteHotelRequest) returns (hotel.DeleteHotelResponse);
      */
     delete(input: DeleteHotelRequest, options?: RpcOptions): UnaryCall<DeleteHotelRequest, DeleteHotelResponse> {
-        const method = this.methods[3], opt = this._transport.mergeOptions(options);
+        const method = this.methods[4], opt = this._transport.mergeOptions(options);
         return stackIntercept<DeleteHotelRequest, DeleteHotelResponse>("unary", this._transport, method, opt, input);
     }
 }
