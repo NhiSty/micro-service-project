@@ -104,6 +104,31 @@ export class AppController {
     metadata?: Metadata,
   ): Promise<DeleteReservationResponse> {
     const reservation = await this.appService.findById(request.id);
+
+    if (!reservation) {
+      throw new Error('reservation not found');
+    }
+
+    const roomId = reservation.roomId;
+    const hotelId = reservation.hotelId;
+
+    const hotel = await this.hotelService.findHotel({
+      id: hotelId,
+    });
+
+    const roomToUpdate = hotel?.rooms.find((room) => room.id === roomId);
+
+    if (roomToUpdate) {
+      try {
+        await this.hotelService.changeStatutOfChamber({
+          hotelId: hotel.id,
+          id: roomId,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     await this.appService.delete(request.id);
     return { reservation: reservation };
   }

@@ -45,7 +45,7 @@ export class AppService {
     return this.prisma.hotelRoom.update({
       where: { id: roomId },
       data: {
-        available: false,
+        available: data.available,
       },
     });
   }
