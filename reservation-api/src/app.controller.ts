@@ -26,7 +26,11 @@ export class AppController {
     request: GetReservationRequest,
     metadata?: Metadata,
   ): Promise<Reservation> {
-    return this.appService.findById(request.id);
+    const reservation = await this.appService.findById(request.id);
+    if (!reservation) {
+      throw new Error('reservation not found');
+    }
+    return reservation;
   }
 
   async listReservations(
