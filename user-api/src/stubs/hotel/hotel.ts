@@ -48,9 +48,19 @@ export interface UpdateHotelRequest {
   address?: string | undefined;
   city?: string | undefined;
   country?: string | undefined;
+  rooms?: HotelRoom[] | undefined;
 }
 
 export interface UpdateHotelResponse {
+  hotel?: Hotel | undefined;
+}
+
+export interface UpdateStatutOfRoomInHotelRequest {
+  hotelId?: number | undefined;
+  id?: number | undefined;
+}
+
+export interface UpdateStatutOfRoomInHotelResponse {
   hotel?: Hotel | undefined;
 }
 
@@ -80,6 +90,11 @@ export interface HotelCRUDServiceClient {
 
   update(request: UpdateHotelRequest, metadata?: Metadata): Observable<UpdateHotelResponse>;
 
+  updateRoomInHotel(
+    request: UpdateStatutOfRoomInHotelRequest,
+    metadata?: Metadata,
+  ): Observable<UpdateStatutOfRoomInHotelResponse>;
+
   delete(request: DeleteHotelRequest, metadata?: Metadata): Observable<DeleteHotelResponse>;
 }
 
@@ -96,6 +111,14 @@ export interface HotelCRUDServiceController {
     metadata?: Metadata,
   ): Promise<UpdateHotelResponse> | Observable<UpdateHotelResponse> | UpdateHotelResponse;
 
+  updateRoomInHotel(
+    request: UpdateStatutOfRoomInHotelRequest,
+    metadata?: Metadata,
+  ):
+    | Promise<UpdateStatutOfRoomInHotelResponse>
+    | Observable<UpdateStatutOfRoomInHotelResponse>
+    | UpdateStatutOfRoomInHotelResponse;
+
   delete(
     request: DeleteHotelRequest,
     metadata?: Metadata,
@@ -104,7 +127,7 @@ export interface HotelCRUDServiceController {
 
 export function HotelCRUDServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["find", "create", "update", "delete"];
+    const grpcMethods: string[] = ["find", "create", "update", "updateRoomInHotel", "delete"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("HotelCRUDService", method)(constructor.prototype[method], method, descriptor);

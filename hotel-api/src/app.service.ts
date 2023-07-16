@@ -41,7 +41,22 @@ export class AppService {
     });
   }
 
-  delete(id: number): Promise<Hotel> {
+  async updateRoom(hotelId: number, roomId: number, data): Promise<HotelRoom> {
+    return this.prisma.hotelRoom.update({
+      where: { id: roomId },
+      data: {
+        available: data.available,
+      },
+    });
+  }
+
+  async delete(id: number): Promise<Hotel> {
+    // Find and delete associated rooms
+    await this.prisma.hotelRoom.deleteMany({
+      where: { hotelId: id },
+    });
+
+    // Delete the hotel
     return this.prisma.hotel.delete({
       where: { id },
     });

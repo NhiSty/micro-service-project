@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { GrpcReflectionModule } from 'nestjs-grpc-reflection';
-import { grpcConfig, grpcConfigHotel } from './grpc.config';
+import { grpcConfig } from './grpc.config';
 import { PrismaService } from './prisma.service';
+import { HotelModule } from './hotel/hotel.module';
+import { ClientsModule } from '@nestjs/microservices';
 
 @Module({
-  imports: [
-    GrpcReflectionModule.register(grpcConfig),
-    GrpcReflectionModule.register(grpcConfigHotel),
-  ],
+  imports: [ClientsModule.register([grpcConfig]), HotelModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })
