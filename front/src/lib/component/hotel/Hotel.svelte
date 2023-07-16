@@ -4,7 +4,6 @@
 	import { EventType, Field } from '$src/lib/stubs/hotel/v1beta/hotel';
 	import modal from '$src/stores/modal';
 	import { relativeDate } from '$src/stores/hotel';
-	import Time from 'svelte-time';
 	import type { IHotel } from '../../helper/hotelDto';
 	import NewField from './NewField.svelte';
 	import RemoveField from './RemoveField.svelte';
@@ -28,7 +27,7 @@
 				{hotel.name}
 			</span>
 			<div class="badge badge-secondary">
-				<Time format="H:mm · D MMM YY" timestamp={hotel.dueDate} relative={$relativeDate} />
+				{relativeDate(hotel.lastUpdated)}
 			</div>
 		</h2>
 

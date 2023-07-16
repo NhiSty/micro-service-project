@@ -16,7 +16,11 @@ const createHotelStore = () => {
 	return {
 		...hotelStore,
 		sortByDate: (asc = true) =>
-			hotelStore.update((ts) => ts.sort((a, b) => (xor(a.dueDate < b.dueDate, asc) ? 1 : -1))),
+			hotelStore.update((ts) =>
+				ts.sort((a, b) =>
+					xor(a.fields[0].value < b.fields[0].value, asc) ? 1 : -1
+				)
+			),
 		sortByName: (asc = true) =>
 			hotelStore.update((ts) =>
 				ts.sort((a, b) =>

@@ -3,7 +3,9 @@ import { FieldType, Hotel } from '$lib/stubs/hotel/v1beta/hotel';
 export interface IHotel {
 	name: string;
 	fields: IField[];
-	dueDate: Date;
+	address: string;
+	city: string;
+	country: string;
 }
 
 export interface IField {
@@ -16,12 +18,14 @@ export const toJson = (hotel: Hotel): IHotel => {
 	return {
 		name: hotel.name,
 		fields: hotel.fields.map(({ name, value, type }) => ({ name, value, type })),
-		dueDate: new Date(hotel.dueDate)
+		address: hotel.address,
+		city: hotel.city,
+		country: hotel.country
 	};
 };
 
 export const toPb = (hotel: IHotel) =>
 	Hotel.create({
 		...hotel,
-		dueDate: typeof hotel.dueDate === 'string' ? hotel.dueDate : hotel.dueDate?.toISOString()
+		fields: hotel.fields.map(({ name, value, type }) => ({ name, value, type }))
 	});

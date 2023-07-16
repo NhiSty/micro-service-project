@@ -16,6 +16,9 @@ import { MessageType } from "@protobuf-ts/runtime";
  * @generated from protobuf message hotel.v1beta.Hotel
  */
 export interface Hotel {
+		country: string;
+		city: string;
+		address: string;
     /**
      * @generated from protobuf field: string name = 1;
      */

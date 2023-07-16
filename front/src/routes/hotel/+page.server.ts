@@ -11,14 +11,19 @@ export const actions: Actions = {
 	newHotel: async ({ request, locals, cookies }) => {
 		const data = await request.formData();
 		const name = data.get('name') as string;
-		const dueDate = data.get('dueDate') as string;
+		const address = data.get('address') as string;
+		const city = data.get('city') as string;
+		const country = data.get('country') as string;
 
 		try {
-			const [time, date] = dueDate.split(' ', 2);
-			const [hour, minute] = time.split(':', 2);
-			const [year, month, day] = date.split('-', 3);
 			const createHotelRequest = CreateHotelRequest.create({
-				hotel: toPb({ fields: [], name, dueDate: new Date(+year, +month - 1, +day, +hour, +minute) })
+				hotel: {
+					name,
+					address,
+					city,
+					country,
+					fields: []
+				}
 			});
 			await locals.hotelClients.crudClient.createHotel(createHotelRequest, {
 				meta: {
