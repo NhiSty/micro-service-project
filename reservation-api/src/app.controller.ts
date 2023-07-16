@@ -35,10 +35,7 @@ export class AppController {
   ): Promise<ListReservationsResponse> {
     let reservations: Reservation[] = [];
 
-    if (request.hotelId) {
-      // reservations = await this.appService.findHotelById(request.hotelId);
-      // return { reservations: reservations };
-    } else if (request.roomId) {
+    if (request.roomId) {
       reservations = await this.appService.findByRoomId(request.roomId);
       return { reservations: reservations };
     } else if (request.checkInDate && request.checkOutDate) {
@@ -67,12 +64,9 @@ export class AppController {
 
     const roomId = request.roomId;
 
-    // Find the room with the specified ID
     const roomToUpdate = hotel?.rooms.find((room) => room.id === roomId);
 
-    console.log('dans reservation api');
     if (roomToUpdate) {
-      // Change the status of the room
       try {
         await this.hotelService.changeStatutOfChamber({
           hotelId: hotel.id,
