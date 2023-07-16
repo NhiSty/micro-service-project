@@ -12,17 +12,25 @@ import {
   UpdateReservationRequest,
 } from './stubs/reservation/v1alpha/reservation';
 import { Metadata } from '@grpc/grpc-js';
+import { HotelService } from './hotel/hotel.service';
 
 @Controller()
 @ReservationCRUDServiceControllerMethods()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly hotelService: HotelService,
+  ) {}
 
   async getReservation(
     request: GetReservationRequest,
     metadata?: Metadata,
   ): Promise<Reservation> {
-    return this.appService.findById(request.id);
+    const reservation = await this.appService.findById(request.id);
+    if (!reservation) {
+      throw new Error('reservation not found');
+    }
+    return reservation;
   }
 
   async listReservations(
@@ -31,10 +39,7 @@ export class AppController {
   ): Promise<ListReservationsResponse> {
     let reservations: Reservation[] = [];
 
-    if (request.hotelId) {
-      // reservations = await this.appService.findHotelById(request.hotelId);
-      // return { reservations: reservations };
-    } else if (request.roomId) {
+    if (request.roomId) {
       reservations = await this.appService.findByRoomId(request.roomId);
       return { reservations: reservations };
     } else if (request.checkInDate && request.checkOutDate) {
@@ -53,14 +58,32 @@ export class AppController {
     request: CreateReservationRequest,
     metadata?: Metadata,
   ): Promise<Reservation> {
-    const hotel = this.appService.findHotelById(request.hotelId);
+    const hotel = await this.hotelService.findHotel({
+      id: request.hotelId,
+    });
 
-    console.log('------------------');
-    console.log(hotel);
+    if (!hotel) {
+      throw new Error('Hotel not found');
+    }
+
+    const roomId = request.roomId;
+
+    const roomToUpdate = hotel?.rooms.find((room) => room.id === roomId);
+
+    if (roomToUpdate) {
+      try {
+        await this.hotelService.changeStatutOfChamber({
+          hotelId: hotel.id,
+          id: roomId,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     return this.appService.create({
       name: request.name,
-      hotelId: request.hotelId,
+      hotelId: hotel.id,
       roomId: request.roomId,
       checkInDate: request.checkInDate,
       checkOutDate: request.checkOutDate,
@@ -85,6 +108,31 @@ export class AppController {
     metadata?: Metadata,
   ): Promise<DeleteReservationResponse> {
     const reservation = await this.appService.findById(request.id);
+
+    if (!reservation) {
+      throw new Error('reservation not found');
+    }
+
+    const roomId = reservation.roomId;
+    const hotelId = reservation.hotelId;
+
+    const hotel = await this.hotelService.findHotel({
+      id: hotelId,
+    });
+
+    const roomToUpdate = hotel?.rooms.find((room) => room.id === roomId);
+
+    if (roomToUpdate) {
+      try {
+        await this.hotelService.changeStatutOfChamber({
+          hotelId: hotel.id,
+          id: roomId,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     await this.appService.delete(request.id);
     return { reservation: reservation };
   }

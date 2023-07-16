@@ -142,11 +142,37 @@ export interface UpdateHotelRequest {
      * @generated from protobuf field: string country = 5;
      */
     country: string;
+    /**
+     * @generated from protobuf field: repeated hotel.HotelRoom rooms = 6;
+     */
+    rooms: HotelRoom[];
 }
 /**
  * @generated from protobuf message hotel.UpdateHotelResponse
  */
 export interface UpdateHotelResponse {
+    /**
+     * @generated from protobuf field: hotel.Hotel hotel = 1;
+     */
+    hotel?: Hotel;
+}
+/**
+ * @generated from protobuf message hotel.UpdateStatutOfRoomInHotelRequest
+ */
+export interface UpdateStatutOfRoomInHotelRequest {
+    /**
+     * @generated from protobuf field: int32 hotelId = 1;
+     */
+    hotelId: number;
+    /**
+     * @generated from protobuf field: int32 id = 2;
+     */
+    id: number;
+}
+/**
+ * @generated from protobuf message hotel.UpdateStatutOfRoomInHotelResponse
+ */
+export interface UpdateStatutOfRoomInHotelResponse {
     /**
      * @generated from protobuf field: hotel.Hotel hotel = 1;
      */
@@ -573,11 +599,12 @@ class UpdateHotelRequest$Type extends MessageType<UpdateHotelRequest> {
             { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "address", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "city", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "country", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 5, name: "country", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "rooms", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => HotelRoom }
         ]);
     }
     create(value?: PartialMessage<UpdateHotelRequest>): UpdateHotelRequest {
-        const message = { id: 0, name: "", address: "", city: "", country: "" };
+        const message = { id: 0, name: "", address: "", city: "", country: "", rooms: [] };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<UpdateHotelRequest>(this, message, value);
@@ -602,6 +629,9 @@ class UpdateHotelRequest$Type extends MessageType<UpdateHotelRequest> {
                     break;
                 case /* string country */ 5:
                     message.country = reader.string();
+                    break;
+                case /* repeated hotel.HotelRoom rooms */ 6:
+                    message.rooms.push(HotelRoom.internalBinaryRead(reader, reader.uint32(), options));
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -630,6 +660,9 @@ class UpdateHotelRequest$Type extends MessageType<UpdateHotelRequest> {
         /* string country = 5; */
         if (message.country !== "")
             writer.tag(5, WireType.LengthDelimited).string(message.country);
+        /* repeated hotel.HotelRoom rooms = 6; */
+        for (let i = 0; i < message.rooms.length; i++)
+            HotelRoom.internalBinaryWrite(message.rooms[i], writer.tag(6, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -687,6 +720,107 @@ class UpdateHotelResponse$Type extends MessageType<UpdateHotelResponse> {
  * @generated MessageType for protobuf message hotel.UpdateHotelResponse
  */
 export const UpdateHotelResponse = new UpdateHotelResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class UpdateStatutOfRoomInHotelRequest$Type extends MessageType<UpdateStatutOfRoomInHotelRequest> {
+    constructor() {
+        super("hotel.UpdateStatutOfRoomInHotelRequest", [
+            { no: 1, name: "hotelId", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 2, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+        ]);
+    }
+    create(value?: PartialMessage<UpdateStatutOfRoomInHotelRequest>): UpdateStatutOfRoomInHotelRequest {
+        const message = { hotelId: 0, id: 0 };
+        globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+        if (value !== undefined)
+            reflectionMergePartial<UpdateStatutOfRoomInHotelRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: UpdateStatutOfRoomInHotelRequest): UpdateStatutOfRoomInHotelRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int32 hotelId */ 1:
+                    message.hotelId = reader.int32();
+                    break;
+                case /* int32 id */ 2:
+                    message.id = reader.int32();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: UpdateStatutOfRoomInHotelRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int32 hotelId = 1; */
+        if (message.hotelId !== 0)
+            writer.tag(1, WireType.Varint).int32(message.hotelId);
+        /* int32 id = 2; */
+        if (message.id !== 0)
+            writer.tag(2, WireType.Varint).int32(message.id);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message hotel.UpdateStatutOfRoomInHotelRequest
+ */
+export const UpdateStatutOfRoomInHotelRequest = new UpdateStatutOfRoomInHotelRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class UpdateStatutOfRoomInHotelResponse$Type extends MessageType<UpdateStatutOfRoomInHotelResponse> {
+    constructor() {
+        super("hotel.UpdateStatutOfRoomInHotelResponse", [
+            { no: 1, name: "hotel", kind: "message", T: () => Hotel }
+        ]);
+    }
+    create(value?: PartialMessage<UpdateStatutOfRoomInHotelResponse>): UpdateStatutOfRoomInHotelResponse {
+        const message = {};
+        globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+        if (value !== undefined)
+            reflectionMergePartial<UpdateStatutOfRoomInHotelResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: UpdateStatutOfRoomInHotelResponse): UpdateStatutOfRoomInHotelResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* hotel.Hotel hotel */ 1:
+                    message.hotel = Hotel.internalBinaryRead(reader, reader.uint32(), options, message.hotel);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: UpdateStatutOfRoomInHotelResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* hotel.Hotel hotel = 1; */
+        if (message.hotel)
+            Hotel.internalBinaryWrite(message.hotel, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message hotel.UpdateStatutOfRoomInHotelResponse
+ */
+export const UpdateStatutOfRoomInHotelResponse = new UpdateStatutOfRoomInHotelResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class DeleteHotelRequest$Type extends MessageType<DeleteHotelRequest> {
     constructor() {
@@ -889,5 +1023,6 @@ export const HotelCRUDService = new ServiceType("hotel.HotelCRUDService", [
     { name: "Find", options: {}, I: FindRequest, O: FindResponse },
     { name: "Create", options: {}, I: CreateHotelRequest, O: CreateHotelResponse },
     { name: "Update", options: {}, I: UpdateHotelRequest, O: UpdateHotelResponse },
+    { name: "UpdateRoomInHotel", options: {}, I: UpdateStatutOfRoomInHotelRequest, O: UpdateStatutOfRoomInHotelResponse },
     { name: "Delete", options: {}, I: DeleteHotelRequest, O: DeleteHotelResponse }
 ]);

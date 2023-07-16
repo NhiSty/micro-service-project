@@ -1,15 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { Reservation } from './stubs/reservation/v1alpha/reservation';
 import { Prisma } from '@prisma/client';
-import { HOTEL_PACKAGE_NAME } from './stubs/hotel/hotel';
 
 @Injectable()
 export class AppService {
-  constructor(
-    private prisma: PrismaService,
-    @Inject(HOTEL_PACKAGE_NAME) private readonly HotelServiceInReservation,
-  ) {}
+  constructor(private prisma: PrismaService) {}
   create(data: Prisma.ReservationCreateInput): Promise<Reservation> {
     return this.prisma.reservation.create({ data });
   }
@@ -24,10 +20,6 @@ export class AppService {
         id: id,
       },
     });
-  }
-
-  findHotelById(id: number): Promise<Reservation> {
-    return this.HotelServiceInReservation.findById(id);
   }
 
   findByName(name: string): Promise<Reservation> {
@@ -64,7 +56,6 @@ export class AppService {
       },
     });
   }
-
 
   async update(
     id: number,
